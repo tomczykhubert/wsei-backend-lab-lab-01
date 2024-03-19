@@ -1,0 +1,9 @@
+@page
+@model BackendLab01.Pages.AllQuizesModel
+
+@{
+    foreach (var quiz in Model.Quizes)
+    {
+        <h2><a class="nav-link text-dark" asp-page="/Quiz/Item" asp-route-itemId="1" asp-route-quizId="@quiz.Id">@quiz.Title</a></h2>
+    }
+}

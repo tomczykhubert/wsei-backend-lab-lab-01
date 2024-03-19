@@ -1,0 +1,9 @@
+﻿@page "{quizId}"
+@using Microsoft.DotNet.Scaffolding.Shared.Project
+@model BackendLab01.Pages.Summary
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h3>Podsumowanie</h3>
+<h5>Wynik: @Model.CorrectAnswers/@Model.NumberOfQuestions</h5>
