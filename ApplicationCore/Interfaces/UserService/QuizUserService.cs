@@ -30,7 +30,8 @@ public class QuizUserService: IQuizUserService
     {
         return quizRepository.FindAll();
     }
-
+    
+    // dopisac logike sprawdzajaca istnienie quizu i pytania
     public void SaveUserAnswerForQuiz(int quizId, int userId, int quizItemId, string answer)
     {
         QuizItem? item = itemRepository.FindById(quizItemId);
@@ -44,7 +45,7 @@ public class QuizUserService: IQuizUserService
         // return answerRepository.FindAll()
         //     .Where(x => x.QuizId == quizId)
         //     .Where(x => x. UserId == userId)
-        //     .ToList();
+        //     .ToList(); 
         return answerRepository.FindBySpecification(new QuizItemsForQuizIdFilledByUser(quizId, userId)).ToList();
     }
 }

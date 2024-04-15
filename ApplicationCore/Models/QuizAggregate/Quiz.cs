@@ -8,7 +8,7 @@ public class Quiz: IIdentity<int>
     
     public string Title { get; }
     
-    public List<QuizItem> Items { get; }
+    public List<QuizItem> Items { get; set; }
 
     public Quiz(int id, List<QuizItem> items, string title)
     {
@@ -16,5 +16,4 @@ public class Quiz: IIdentity<int>
         Items = items;
         Title = title;
     }
-    
 }
