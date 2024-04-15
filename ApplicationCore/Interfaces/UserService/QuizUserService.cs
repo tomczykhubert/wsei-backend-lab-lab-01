@@ -32,11 +32,12 @@ public class QuizUserService: IQuizUserService
     }
     
     // dopisac logike sprawdzajaca istnienie quizu i pytania
-    public void SaveUserAnswerForQuiz(int quizId, int userId, int quizItemId, string answer)
+    public QuizItemUserAnswer SaveUserAnswerForQuiz(int quizId, int userId, int quizItemId, string answer)
     {
         QuizItem? item = itemRepository.FindById(quizItemId);
         var userAnswer = new QuizItemUserAnswer(quizItem: item, userId: userId, answer: answer, quizId: quizId);
         answerRepository.Add(userAnswer);
+        return userAnswer;
     }
 
 

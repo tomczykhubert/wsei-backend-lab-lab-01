@@ -16,7 +16,7 @@ public class QuizDbContext : DbContext
     {
         base.OnConfiguring(optionsBuilder);
         optionsBuilder.UseSqlServer(
-            "DATA SOURCE=...;DATABASE=...;Integrated Security=true;TrustServerCertificate=True");
+            "DATA SOURCE=localhost;DATABASE=quiz_database;Integrated Security=true;TrustServerCertificate=True");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -146,21 +146,21 @@ public class QuizDbContext : DbContext
                     new {QuizItemsId = 4, IncorrectAnswersId = 6},
                     new {QuizItemsId = 4, IncorrectAnswersId = 8},
                     // "7 * 3"
-                    new {QuizItemsId = 4, IncorrectAnswersId = 10},
-                    new {QuizItemsId = 4, IncorrectAnswersId = 11},
-                    new {QuizItemsId = 4, IncorrectAnswersId = 12},
+                    new {QuizItemsId = 5, IncorrectAnswersId = 10},
+                    new {QuizItemsId = 5, IncorrectAnswersId = 11},
+                    new {QuizItemsId = 5, IncorrectAnswersId = 12},
                     // "2 : 2"
-                    new {QuizItemsId = 4, IncorrectAnswersId = 11},
-                    new {QuizItemsId = 4, IncorrectAnswersId = 12},
-                    new {QuizItemsId = 4, IncorrectAnswersId = 13},
+                    new {QuizItemsId = 6, IncorrectAnswersId = 11},
+                    new {QuizItemsId = 6, IncorrectAnswersId = 12},
+                    new {QuizItemsId = 6, IncorrectAnswersId = 13},
                     // "25 * 5"
-                    new {QuizItemsId = 4, IncorrectAnswersId = 12},
-                    new {QuizItemsId = 4, IncorrectAnswersId = 13},
-                    new {QuizItemsId = 4, IncorrectAnswersId = 14},
+                    new {QuizItemsId = 7, IncorrectAnswersId = 12},
+                    new {QuizItemsId = 7, IncorrectAnswersId = 13},
+                    new {QuizItemsId = 7, IncorrectAnswersId = 14},
                     // "43 * 2"
-                    new {QuizItemsId = 4, IncorrectAnswersId = 13},
-                    new {QuizItemsId = 4, IncorrectAnswersId = 14},
-                    new {QuizItemsId = 4, IncorrectAnswersId = 15}
+                    new {QuizItemsId = 8, IncorrectAnswersId = 13},
+                    new {QuizItemsId = 8, IncorrectAnswersId = 14},
+                    new {QuizItemsId = 8, IncorrectAnswersId = 15}
                 )
             );
     }

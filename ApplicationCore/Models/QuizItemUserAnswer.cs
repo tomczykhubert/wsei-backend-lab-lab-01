@@ -16,6 +16,8 @@ public class QuizItemUserAnswer: IIdentity<string>
         QuizId = quizId;
     }
 
+    public QuizItemUserAnswer() { }
+
     public bool IsCorrect()
     {
         return QuizItem.CorrectAnswer == Answer;

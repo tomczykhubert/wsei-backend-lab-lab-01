@@ -33,10 +33,32 @@ public class WebApiUserQuiz : ControllerBase
     [Route("{quizId}/items/{itemId}/answers")]
     public ActionResult SaveUserAnswer([FromBody] SaveAnswerDto saveAnswerDto, int quizId, int itemId)
     {
-        _service.SaveUserAnswerForQuiz(quizId, saveAnswerDto.UserId, itemId, saveAnswerDto.Answer);
-        return Created( "uri to answer", null);
+        try
+        {
+            var item = _service.SaveUserAnswerForQuiz(quizId, saveAnswerDto.UserId, itemId, saveAnswerDto.Answer);
+            return Created("uri to answer", null);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
-    
+
+    [HttpGet]
+    [Route("{quizId}/answers/{userId}")]
+    public ActionResult<List<QuizItemUserAnswer>> GetUserAnswers(int quizId, int userId)
+    {
+        try
+        {
+            var result = _service.GetUserAnswersForQuiz(quizId, userId);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
     [HttpGet]
     [Route("{quizId}/summary/{userId}")]
     public ActionResult<QuizSummaryDto?> GetQuizSummaryForUser(int quizId, int userId)
