@@ -53,24 +53,36 @@ namespace Infrastructure.Services
             var quizzEntity = _context.Quizzes.AsNoTracking().FirstOrDefault(e => e.Id == quizId);
             if (quizzEntity == null)
                 throw new QuizNotFoundException($"Quiz with id {quizId} not found");
-            return _context.UserAnswers.Include(a => a.QuizItem).Where(a => a.UserId == userId && a.QuizId == quizId).Select(_mapper.Map<QuizItemUserAnswer>).ToList();
+            return _context.UserAnswers.Include(a => a.QuizItem).ThenInclude(i => i.IncorrectAnswers).Where(a => a.UserId == userId && a.QuizId == quizId).Select(_mapper.Map<QuizItemUserAnswer>).ToList();
         }
 
         public QuizItemUserAnswer SaveUserAnswerForQuiz(int quizId, int userId, int quizItemId, string answer)
         {
-            var quizzEntity = FindQuizById(quizId);
-
             QuizItemUserAnswerEntity entity = new QuizItemUserAnswerEntity()
             {
-                QuizId = quizId,
-                UserAnswer = answer,
                 UserId = userId,
-                QuizItemId = quizItemId
+                QuizItemId = quizItemId,
+                QuizId = quizId,
+                UserAnswer = answer
             };
-
-            var savedEntity = _context.Add(entity).Entity;
-            _context.SaveChanges();
-            return _mapper.Map<QuizItemUserAnswer>(entity);
+            try
+            {
+                var saved = _context.UserAnswers.Add(entity).Entity;
+                _context.SaveChanges();
+                return _mapper.Map<QuizItemUserAnswer>(saved);
+            }
+            catch (DbUpdateException e)
+            {
+                if (e.InnerException.Message.StartsWith("The INSERT"))
+                {
+                    throw new QuizNotFoundException("Quiz, quiz item or user not found. Can't save!");
+                }
+                if (e.InnerException.Message.StartsWith("Violation of"))
+                {
+                    throw new QuizAnswerItemAlreadyExistsException(quizId, quizItemId, userId);
+                }
+                throw new Exception(e.Message);
+            }
         }
     }
 }

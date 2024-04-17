@@ -4,10 +4,10 @@ namespace BackendLab01;
 
 public class QuizItemUserAnswer: IIdentity<string>
 {
-    public int QuizId { get; }
-    public QuizItem  QuizItem{ get; }
-    public int UserId { get; }
-    public string Answer { get; }
+    public int QuizId { get; set; }
+    public QuizItem  QuizItem{ get; set; }
+    public int UserId { get; set; }
+    public string Answer { get; set; }
     public QuizItemUserAnswer(QuizItem quizItem, int userId, int quizId,string answer)
     {
         QuizItem = quizItem;
